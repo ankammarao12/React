@@ -1,103 +1,51 @@
-// imr - import React
-// sfc - stateless functional component
-import React from "react";
+import React, { useState, useEffect } from "react";
+import Button from "@mui/material/Button";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import IconButton from "@mui/material/IconButton";
+import MenuIcon from "@mui/icons-material/Menu";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import Badge from "@mui/material/Badge";
+
 import { NavLink } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 
 const Nav = () => {
+  const count = useSelector((state) => state.count);
+  console.log(count);
   return (
     <div>
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div className="container-fluid">
-          <NavLink className="navbar-brand" to="/home">
-            Online Customer Service
-          </NavLink>
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-              <li className="nav-item">
-                <NavLink className="nav-link active" aria-current="page" to="/home">
-                  Home
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink className="nav-link" to="/issue">
-                  Issues
-                </NavLink>
-              </li>
-              <li className="nav-item dropdown">
-                <a
-                  className="nav-link dropdown-toggle"
-                  href="#"
-                  id="navbarDropdown"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  Servies
-                </a>
-                <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      Sailing
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      Water Games
-                    </a>
-                  </li>
-                  <li className="dropdown-divider"></li>
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      Kids Jone
-                    </a>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-            <form className="d-flex">
-              <input
-                className="form-control me-2"
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-              />
-              <button className="btn btn-outline-success" type="submit">
-                Search
-              </button>
-            </form>
-            <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-              <li className="nav-item">
-                <NavLink className="nav-link" to="/login">
-                  Login
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink className="nav-link" to="/register">
-                  Register
-                </NavLink>
-              </li>
-              
-              <li className="nav-item">
-                <NavLink className="nav-link" to="/cart">
-                  Cart
-                  </NavLink>
-               
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
+      <Box sx={{ flexGrow: 1 }}>
+        <AppBar position="static">
+          <Toolbar>
+            <Button to="/home" color="inherit" component={NavLink}>
+              Online CustomerService
+            </Button>
+
+            <Button
+              color="inherit"
+              to="/issue"
+              component={NavLink}
+              style={{ marginRight: "auto" }}
+            >
+           Issues
+            </Button>
+            <Button color="inherit" component={NavLink} to="/login">
+              Login
+            </Button>
+            <Button color="inherit" component={NavLink} to="/register">
+              Register
+           </Button>
+            <IconButton aria-label="cart" component={NavLink} to="/cart">
+              <Badge badgeContent={count}>
+                <ShoppingCartIcon />
+              </Badge>
+            </IconButton>
+          </Toolbar>
+        </AppBar>
+      </Box>
     </div>
   );
 };

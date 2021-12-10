@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import IssueTable from "./issuetable";
 
 class Issue extends React.Component {
   state = {
@@ -25,62 +26,29 @@ class Issue extends React.Component {
     console.log("componentWillUnmount");
   }
 
- /* handleDelete = (issueId) => {
-   
+  handleDelete = (issueId) => {
+    //axios.delete("http://localhost:8082/students/" + rollNo);
     axios
-      .delete(`http://localhost:8181/api/getallIssues/call${issueId}`)
+      .delete(`http://localhost:8181/api/getallIssues/call/${issueId}`)
       .then((res) => {
         console.log(res);
         // Update front end parallely
-        const issue = this.state.issue.filter((s) => s.issueId!= issueId);
-        this.setState({issue: issue});
-        alert(res.data.issueId+ " deleted succussfully!");
-        
+        const issue = this.state.issue.filter((s) => s.issueId != issueId);
+        this.setState({ issue: issue });
+        alert(res.data.description + " deleted succussfully!");
       })
       .catch((err) => console.log(err));
-  };*/
+  };
   render() {
     return (
       <div className="w-75 mx-auto">
-        <button className="btn btn-info float-end">Add</button>
-        <table className="table">
-          <thead>
-            <tr>
-              <th>IssueId</th>
-              <th>Description</th>
-              <th>IssueStatus</th>
-              <th>IssueType</th>
-             
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.state.issue.map((s) => (
-              <tr>
-                <td>{s.issueId}</td>
-                <td>{s.description}</td>
-                <td>{s.issueStatus}</td>
-                <td>{s.issueType}</td>
-               
-                <td>
-                <Link
-                    to={`/issue/update/${s.issueId}`}
-                    className="btn btn-primary"
-                  >
-                    Update
-
-                    </Link>
-                  <button
-                    className="btn btn-danger"
-                    onClick={() => this.handleDelete(s.issueId)}
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <Link to="/issue/add" className="btn btn-info float-end">
+          Add
+        </Link>
+        <IssueTable
+          issue={this.state.issue}
+          handleDelete={this.handleDelete}
+        />
       </div>
     );
   }
